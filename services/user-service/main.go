@@ -8,10 +8,17 @@ import (
 	"user-service/middleware"
 	"user-service/models"
 
+	"github.com/joho/godotenv"
+
 	"github.com/gorilla/mux"
 )
 
 func main() {
+
+	err := godotenv.Load(".env")
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
 
 	// Initialize the database connection
 	database.ConnectDatabase()

@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
 	"user-service/controllers"
 	"user-service/database"
 	"user-service/middleware"
@@ -15,6 +16,7 @@ import (
 
 func main() {
 
+	// Load .env file
 	err := godotenv.Load(".env")
 	if err != nil {
 		log.Fatal("Error loading .env file")
@@ -39,6 +41,7 @@ func main() {
 	// protectedRouter.HandleFunc("/history", controllers.GetUserHistory).Methods("GET")
 
 	// Start the server
-	log.Println("Server started on :8080")
-	log.Fatal(http.ListenAndServe(":8080", router))
+	port := os.Getenv("PORT")
+	log.Println("Server is running on port: ",port)
+	log.Fatal(http.ListenAndServe(":"+port, router))
 }

@@ -21,8 +21,8 @@ func JWTAuthentication(next http.Handler) http.Handler {
 		}
 
 		// Extract the token from the Authorization header
-		tokenString := strings.Split(authHeader, "Bearer ")[1]
-
+		tokenString := strings.TrimPrefix(authHeader, "Bearer ")
+		
 		// Get the JWT secret key from environment variables
 		jwtSecretKey := os.Getenv("JWT_SECRET_KEY")
 		if jwtSecretKey == "" {

@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -12,8 +13,6 @@ import (
 	"github.com/dgrijalva/jwt-go"
 	"golang.org/x/crypto/bcrypt"
 )
-
-var jwtSecretKey = []byte(os.Getenv("JWT_SECRET_KEY"))
 
 type LoginCredentials struct {
 	Email    string `json:"email"`
@@ -52,6 +51,12 @@ func LoginUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func generateJWT(user models.User) (string, error) {
+
+	jwtSecretKey := os.Getenv("JWT_SECRET_KEY")
+	if jwtSecretKey == "" {
+		return "", fmt.Errorf("JWT_SECRET_KEY not set in environment variables")
+	}
+
 	// Create a new JWT token
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"sub": user.ID,                               // User ID as the subject of the token
@@ -59,7 +64,7 @@ func generateJWT(user models.User) (string, error) {
 	})
 
 	// Sign the token with our secret key
-	tokenString, err := token.SignedString(jwtSecretKey)
+	tokenString, err := token.SignedString([]byte(jwtSecretKey))
 	if err != nil {
 		return "", err
 	}

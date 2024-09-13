@@ -4,10 +4,11 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"user-service/controllers"
-	"user-service/database"
-	"user-service/middleware"
-	"user-service/models"
+
+	"auth-service/controllers"
+	"auth-service/database"
+	"auth-service/middleware"
+	"auth-service/models"
 
 	"github.com/joho/godotenv"
 
@@ -42,6 +43,6 @@ func main() {
 
 	// Start the server
 	port := os.Getenv("PORT")
-	log.Println("Server is running on port: ",port)
+	log.Println("Server is running on port: ", port)
 	log.Fatal(http.ListenAndServe(":"+port, router))
 }

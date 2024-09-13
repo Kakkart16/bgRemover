@@ -8,14 +8,14 @@ RUN go mod download
 
 COPY . .
 
-RUN go build -o user-service .
+RUN go build -o auth-service .
 
 FROM alpine:latest
 
 WORKDIR /app
 
-COPY --from=builder /app/user-service .
+COPY --from=builder /app/auth-service .
 
 EXPOSE 8080
 
-CMD ["./user-service"]
+CMD ["./auth-service"]

@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
-	"user-service/database"
-	"user-service/models"
+	"auth-service/database"
+	"auth-service/models"
 
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"

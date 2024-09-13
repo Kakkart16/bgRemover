@@ -1,14 +1,14 @@
 package controllers
 
 import (
+	"auth-service/database"
+	"auth-service/models"
 	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
 	"os"
 	"time"
-	"user-service/database"
-	"user-service/models"
 
 	"github.com/dgrijalva/jwt-go"
 	"golang.org/x/crypto/bcrypt"
